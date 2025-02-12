@@ -1,12 +1,12 @@
 "use client"
 
-import { DashboardSidebar } from "./components/side-bar"
+import { DashboardSidebar } from "../dashboard/components/side-bar"
 import { useState } from "react"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type React from "react" 
 
-export default function DashboardLayout({
+export default function PasswordLayout({
   children,
 }: {
   children: React.ReactNode
