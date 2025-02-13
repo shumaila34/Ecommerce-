@@ -1,9 +1,9 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { KeyRound, LayoutDashboard, LogOut, ShoppingBag, User, UserCog, X } from "lucide-react"
+import { KeyRound, LayoutDashboard, LogOut, ShoppingBag, UserCog, X } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter  } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
 const sidebarLinks = [
@@ -14,13 +14,8 @@ const sidebarLinks = [
   },
   {
     title: "My Orders",
-    href: "/user/orders",
+    href: "/order",
     icon: ShoppingBag,
-  },
-  {
-    title: "My Account",
-    href: "/user/account",
-    icon: User,
   },
   {
     title: "Update Profile",
@@ -36,6 +31,21 @@ const sidebarLinks = [
 
 export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
   const pathname = usePathname()
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      // Perform logout logic (e.g., clearing tokens, session, or calling API)
+      localStorage.removeItem("authToken"); // Example: Remove token from localStorage
+      sessionStorage.clear(); // Clear session storage if needed
+
+      // Redirect to login page after logout
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
 
   return (
     <div
@@ -65,7 +75,9 @@ export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (o
             {link.title}
           </Link>
         ))}
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100">
+        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100"
+        onClick={handleLogout}
+        >
           <LogOut className="h-5 w-5" />
           Logout
         </button>

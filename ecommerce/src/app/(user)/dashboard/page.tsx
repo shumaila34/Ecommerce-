@@ -1,7 +1,20 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { RecentOrders } from "./components/recent-order"
 import { DashboardStats } from "./components/stats"
+import { DashboardStatsSkeleton } from "./components/stat-skeleton"
+import { RecentOrdersSkeleton } from "./components/recent-orders-skeleton"
 
 function DashboardPage() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className="space-y-6">
       <div className="text-center sm:text-left">
@@ -9,8 +22,8 @@ function DashboardPage() {
           Dashboard
         </h1>
       </div>
-      <DashboardStats />
-      <RecentOrders />
+      {isLoading ? <DashboardStatsSkeleton /> : <DashboardStats />}
+      {isLoading ? <RecentOrdersSkeleton /> : <RecentOrders />}
     </div>
   )
 }
