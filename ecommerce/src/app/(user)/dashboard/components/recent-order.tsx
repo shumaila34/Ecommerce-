@@ -40,32 +40,11 @@ const orders = [
     status: "Delivered",
     total: "90.78",
   },
-  {
-    id: "9C3E",
-    orderTime: "January 30, 2025",
-    method: "Cash",
-    status: "Delivered",
-    total: "90.78",
-  },
-  {
-    id: "7393",
-    orderTime: "January 29, 2025",
-    method: "Cash",
-    status: "Pending",
-    total: "213.26",
-  },
-  {
-    id: "DE23",
-    orderTime: "January 29, 2025",
-    method: "Card",
-    status: "Delivered",
-    total: "212.48",
-  },
 ]
 
 export function RecentOrders() {
   const [currentPage, setCurrentPage] = useState(1)
-  const ordersPerPage = 10
+  const ordersPerPage = 5
   const totalPages = Math.ceil(orders.length / ordersPerPage)
 
   const indexOfLastOrder = currentPage * ordersPerPage
@@ -79,13 +58,13 @@ export function RecentOrders() {
       <div className="border-b p-4">
         <h2 className="text-xl font-semibold">Recent Orders</h2>
       </div>
-      <div className="p-4">
+      <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>ORDER TIME</TableHead>
-              <TableHead>METHOD</TableHead>
+              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead className="hidden md:table-cell">ORDER TIME</TableHead>
+              <TableHead className="hidden sm:table-cell">METHOD</TableHead>
               <TableHead>STATUS</TableHead>
               <TableHead className="text-right">TOTAL</TableHead>
             </TableRow>
@@ -94,8 +73,8 @@ export function RecentOrders() {
             {currentOrders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell className="font-medium">{order.id}</TableCell>
-                <TableCell>{order.orderTime}</TableCell>
-                <TableCell>{order.method}</TableCell>
+                <TableCell className="hidden md:table-cell">{order.orderTime}</TableCell>
+                <TableCell className="hidden sm:table-cell">{order.method}</TableCell>
                 <TableCell>
                   <span
                     className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
@@ -111,9 +90,9 @@ export function RecentOrders() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-between border-t px-4 py-2">
+      <div className="flex flex-col items-center justify-between gap-4 border-t px-4 py-2 sm:flex-row">
         <Button variant="outline" size="sm" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4 mr-2" />
           Previous
         </Button>
         <div className="flex items-center gap-1">
@@ -135,10 +114,9 @@ export function RecentOrders() {
           disabled={currentPage === totalPages}
         >
           Next
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4 ml-2" />
         </Button>
       </div>
     </div>
   )
 }
-

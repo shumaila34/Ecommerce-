@@ -1,3 +1,4 @@
+
 "use client";
 import { useMemo, useState } from "react";
 import {
@@ -13,10 +14,10 @@ import { orders } from "../data/fakeOrders";
 import Link from "next/link";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import TableSkeleton from "./TableSkeleton";
-import ErrorAlert from "./ErrorAlert";
+import  ErrorAlert  from "./ErrorAlert";
 
 const OrderTable = () => {
-  // const { orders, isLoading, error } = useOrderContext();
+  const { orders, isLoading, error } = useOrderContext();
 
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
@@ -71,8 +72,8 @@ const OrderTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  // if (isLoading) return <TableSkeleton />;
-  // if (error) return <ErrorAlert/>;
+  if (isLoading) return <TableSkeleton />;
+  if (error) return <ErrorAlert/>;
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">

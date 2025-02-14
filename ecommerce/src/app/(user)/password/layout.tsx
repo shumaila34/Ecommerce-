@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import type React from "react"
 
-export default function DashboardLayout({
+export default function PasswordLayout({
   children,
 }: {
   children: React.ReactNode
@@ -45,3 +45,4 @@ export default function DashboardLayout({
     </div>
   )
 }
+
