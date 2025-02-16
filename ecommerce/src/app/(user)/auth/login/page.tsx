@@ -6,16 +6,43 @@ import { AuthLayout } from "../components/layouts/layout";
 import { FormInput } from "../components/ui/form-input";
 import { loginSchema } from "../lib/validations/auth";
 import type { LoginFormValues } from "../lib/types/auth";
+import { loginService } from "../services/authService";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
   };
 
   const handleSubmit = async (values: LoginFormValues) => {
-    // Add your login logic here
-    console.log("Login attempt:", values);
+ 
+    try {
+      const payload = {
+        Email: values.email,
+        Password: values.password,
+      };
+      const data = await loginService(payload);
+
+      // Save token and user in local storage
+      if(data?.token && data?.user) {
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+  
+        // Set token in cookies
+        document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
+      }
+
+      toast.success(data.message || "Login successful");
+
+      router.push("/dashboard");
+      
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

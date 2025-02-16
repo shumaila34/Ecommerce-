@@ -6,17 +6,37 @@ import { AuthLayout } from "../components/layouts/layout";
 import { FormInput } from "../components/ui/form-input";
 import { signupSchema } from "../lib/validations/auth";
 import type { SignupFormValues } from "../lib/types/auth";
+import { registerService } from "../services/authService";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
+  const router = useRouter();
   const initialValues: SignupFormValues = {
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    phoneNumber: "",
   };
 
-  const handleSubmit = async (values: SignupFormValues) => {
-    // Add your signup logic here
-    console.log("Signup attempt:", values);
+  const handleSubmit = async (values: SignupFormValues, { resetForm }: { resetForm: () => void }) => {
+ 
+    try {
+      const payload = {
+        FirstName: values.firstName,
+        LastName: values.lastName,
+        Email: values.email,
+        Password: values.password,
+        PhoneNumber: values.phoneNumber,
+      };
+      const data = await registerService(payload);
+      toast.success(data.message || "Signup successful");
+      resetForm(); 
+      router.push("/auth/login");
+    } catch (err) {
+      console.error(err);
+    } 
   };
 
   return (
@@ -33,10 +53,16 @@ export default function SignupPage() {
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <FormInput
-                label="Name"
-                name="name"
+                label="First Name"
+                name="firstName"
                 type="text"
-                placeholder="Full Name"
+                placeholder="First Name"
+              />
+              <FormInput
+                label="Last Name"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
               />
               <FormInput
                 label="Email"
@@ -49,6 +75,12 @@ export default function SignupPage() {
                 name="password"
                 type="password"
                 placeholder="Password"
+              />
+              <FormInput
+                label="Phone Number"
+                name="phoneNumber"
+                type="tel"
+                placeholder="Phone Number"
               />
             </div>
 
