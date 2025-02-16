@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import type React from "react"
 
-export default function ProfileLayout({
+export default function orderLayout({
   children,
 }: {
   children: React.ReactNode
