@@ -35,7 +35,8 @@ export function Banner({ slides }: BannerProps) {
   };
 
   return (
-    <Card className="w-full overflow-hidden relative group">
+    <section className="container mx-auto px-4 py-8">
+     <Card className="w-full overflow-hidden relative group">
       <div className="relative h-[400px] w-full">
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10" />
         <Image
@@ -84,6 +85,8 @@ export function Banner({ slides }: BannerProps) {
           ))}
         </div>
       </div>
-    </Card>
+     </Card>
+    </section>
+
   );
 }
