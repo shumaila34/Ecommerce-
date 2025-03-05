@@ -1,18 +1,23 @@
 export interface LoginFormValues{
-    email: string
-    password: string
+    Email: string
+    Password: string
 }
 
 export interface SignupFormValues{
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    phoneNumber: string
+    FirstName: string
+    LastName: string
+    Email: string
+    Password: string
+    PhoneNumber: string
 }
 
 export interface ForgotPasswordFormValues{
-    email: string
+    Email: string
+}
+
+export interface ResetPasswordFormValues{
+    Password: string
+    ConfirmPassword: string
 }
 
 export interface RegisterData {
@@ -71,4 +76,13 @@ export interface authResponse {
 export interface LoginData {
     Email: string;
     Password: string;
+}
+
+export interface ForgotpasswordData {
+    Email: string;
+}
+
+export interface ResetPasswordData {
+    token: string;
+    newPassword: string;
 }

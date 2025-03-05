@@ -9,28 +9,22 @@ import type { SignupFormValues } from "../lib/types/auth";
 import { registerService } from "../services/authService";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
   const initialValues: SignupFormValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    Password: "",
+    PhoneNumber: "",
   };
 
   const handleSubmit = async (values: SignupFormValues, { resetForm }: { resetForm: () => void }) => {
  
     try {
-      const payload = {
-        FirstName: values.firstName,
-        LastName: values.lastName,
-        Email: values.email,
-        Password: values.password,
-        PhoneNumber: values.phoneNumber,
-      };
-      const data = await registerService(payload);
+      const data = await registerService(values);
       toast.success(data.message || "Signup successful");
       resetForm(); 
       router.push("/auth/login");
@@ -54,31 +48,31 @@ export default function SignupPage() {
             <div className="space-y-4">
               <FormInput
                 label="First Name"
-                name="firstName"
+                name="FirstName"
                 type="text"
                 placeholder="First Name"
               />
               <FormInput
                 label="Last Name"
-                name="lastName"
+                name="LastName"
                 type="text"
                 placeholder="Last Name"
               />
               <FormInput
                 label="Email"
-                name="email"
+                name="Email"
                 type="email"
                 placeholder="Email"
               />
               <FormInput
                 label="Password"
-                name="password"
+                name="Password"
                 type="password"
                 placeholder="Password"
               />
               <FormInput
                 label="Phone Number"
-                name="phoneNumber"
+                name="PhoneNumber"
                 type="tel"
                 placeholder="Phone Number"
               />
@@ -89,7 +83,11 @@ export default function SignupPage() {
               disabled={isSubmitting}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Creating account..." : "Register"}
+              {isSubmitting ? (
+                <Loader className="animate-spin" size={16} />
+              ) : (
+                "Register"
+              )}
             </button>
 
             <div className="text-center">

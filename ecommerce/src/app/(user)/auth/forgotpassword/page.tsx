@@ -6,16 +6,24 @@ import { AuthLayout } from "../components/layouts/layout";
 import { FormInput } from "../components/ui/form-input";
 import { forgotPasswordSchema } from "../lib/validations/auth";
 import type { ForgotPasswordFormValues } from "../lib/types/auth";
+import { toast } from "react-toastify";
+import { forgotService } from "../services/authService";
+import { Loader } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const initialValues: ForgotPasswordFormValues = {
-    email: "",
+    Email: "",
   };
 
   const handleSubmit = async (values: ForgotPasswordFormValues) => {
-    // Add your forgot password logic here
-    console.log("Forgot password attempt:", values);
-  };
+    try {
+          const data = await forgotService(values);
+          toast.success(data.message || "Check Your Email Address For Reset Password!");
+        } catch (err) {
+          console.error(err);
+        } 
+    };
+  
 
   return (
     <AuthLayout
@@ -32,7 +40,7 @@ export default function ForgotPasswordPage() {
             <div className="space-y-4">
               <FormInput
                 label="Email"
-                name="email"
+                name="Email"
                 type="email"
                 placeholder="Email"
               />
@@ -43,7 +51,11 @@ export default function ForgotPasswordPage() {
               disabled={isSubmitting}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Sending..." : "Reset Password"}
+              {isSubmitting ? (
+                <Loader className="animate-spin" size={16} />
+              ) : (
+                "Reset Password"
+              )}
             </button>
 
             <div className="text-center">
