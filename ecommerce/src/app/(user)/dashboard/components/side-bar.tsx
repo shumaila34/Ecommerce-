@@ -14,7 +14,7 @@ const sidebarLinks = [
   },
   {
     title: "My Orders",
-    href: "/order",
+    href: "/orders",
     icon: ShoppingBag,
   },
   {
