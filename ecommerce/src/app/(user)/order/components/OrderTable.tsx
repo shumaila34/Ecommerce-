@@ -1,6 +1,5 @@
-
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,22 +7,39 @@ import {
   getPaginationRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { useOrderContext } from "../context/OrderContext";
 import OrderStatus from "./OrderStatus";
-import { orders } from "../data/fakeOrders";
+import { orders as fakeOrders } from "../data/fakeOrders"; // Fake orders
 import Link from "next/link";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import TableSkeleton from "./TableSkeleton";
-import  ErrorAlert  from "./ErrorAlert";
+import ErrorAlert from "./ErrorAlert";
 
 const OrderTable = () => {
-  const { orders, isLoading, error } = useOrderContext();
-
+  type Order = {
+    id: string;
+    orderTime: string;
+    method: string;
+    status: string;
+    total: number;
+  };
+  const [orders, setOrders] = useState<Order[] | null>(null); // Initially empty
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null); // Simulating an error state
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 8,
   });
+
+  // Simulate loading delay
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setOrders(fakeOrders); // Set fake data
+      setIsLoading(false); // Stop loading after 2 seconds
+    }, 2000);
+
+    return () => clearTimeout(timeout); // Cleanup timeout on unmount
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -72,8 +88,8 @@ const OrderTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  if (isLoading) return <TableSkeleton />;
-  if (error) return <ErrorAlert/>;
+  if (isLoading) return <TableSkeleton />; // Show skeleton loader
+  if (error) return <ErrorAlert />; // Handle errors
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
