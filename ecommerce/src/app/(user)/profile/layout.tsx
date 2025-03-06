@@ -1,5 +1,4 @@
 "use client"
-
 import { DashboardSidebar } from "../dashboard/components/side-bar"
 import { useState, useEffect } from "react"
 import { Menu } from "lucide-react"
@@ -7,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import type React from "react"
 
-export default function DashboardLayout({
+export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode
@@ -16,6 +15,7 @@ export default function DashboardLayout({
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Simulate loading delay
     const timer = setTimeout(() => setIsLoading(false), 1500)
     return () => clearTimeout(timer)
   }, [])
@@ -40,8 +40,18 @@ export default function DashboardLayout({
             <Menu className="h-6 w-6" />
           </Button>
         </div>
-        <main className="p-4 lg:p-6">{children}</main>
+        <main className="p-4 lg:p-6">
+          {isLoading ? (
+            <div className="space-y-6">
+              <Skeleton className="h-8 w-64" />
+              <Skeleton className="h-[400px] w-full" />
+            </div>
+          ) : (
+            children
+          )}
+        </main>
       </div>
     </div>
   )
 }
+

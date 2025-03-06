@@ -37,7 +37,7 @@ export function DashboardStats() {
           </div>
           <div>
             <p className="text-sm text-gray-500">{stat.title}</p>
-            <p className="text-2xl font-semibold">{stat.value}</p>
+            <p className="text-xl font-semibold sm:text-2xl">{stat.value}</p>
           </div>
         </div>
       ))}
