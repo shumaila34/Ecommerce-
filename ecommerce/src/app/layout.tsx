@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
-import { AppDownload } from '@/components/shared/AppDownload';
+import { AppDownload } from "@/components/shared/AppDownload";
 // import { QueryClientProvider } from "@tanstack/react-query";
 // import queryClient from "../lib/queryClient";
 
@@ -21,7 +21,8 @@ import { AppDownload } from '@/components/shared/AppDownload';
 
 export const metadata: Metadata = {
   title: "Organic Store - Fresh & Healthy Products",
-  description: "Your one-stop shop for organic products, fresh vegetables, fruits, and more.",
+  description:
+    "Your one-stop shop for organic products, fresh vegetables, fruits, and more.",
 };
 
 export default function RootLayout({
@@ -32,13 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <main className="flex-grow">{children}</main>
           <AppDownload />
           <Footer />
         </div>
