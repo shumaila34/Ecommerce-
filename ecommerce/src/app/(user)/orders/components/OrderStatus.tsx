@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { OrderStatusProps } from "./Orders.type";
+import { OrderStatusProps } from "../types/Orders.type";
 
 const OrderStatus: FC<OrderStatusProps> = ({ status }) => {
   const statusColors: Record<string, string> = {

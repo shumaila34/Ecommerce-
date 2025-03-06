@@ -13,15 +13,9 @@ import Link from "next/link";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import TableSkeleton from "./TableSkeleton";
 import ErrorAlert from "./ErrorAlert";
+import { Order } from "../types/Orders.type";
 
 const OrderTable = () => {
-  type Order = {
-    id: string;
-    orderTime: string;
-    method: string;
-    status: string;
-    total: number;
-  };
   const [orders, setOrders] = useState<Order[] | null>(null); // Initially empty
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null); // Simulating an error state
@@ -63,7 +57,7 @@ const OrderTable = () => {
         header: "ACTION",
         cell: ({ row }) => (
           <Link href={`/orders/${row.original.id}`}>
-            <button className="bg-emerald-500 text-white px-3 py-1 rounded">
+            <button className="bg-emerald-500 text-white px-3 py-1 rounded text-sm">
               Details
             </button>
           </Link>
@@ -96,7 +90,7 @@ const OrderTable = () => {
       <h2 className="text-xl font-semibold mb-4">My Orders</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-200">
-          <thead className="bg-orange-400 text-white">
+          <thead className="bg-orange-400 text-white text-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -127,7 +121,7 @@ const OrderTable = () => {
 
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-t">
+              <tr key={row.id} className="border-t text-sm">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-3">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
