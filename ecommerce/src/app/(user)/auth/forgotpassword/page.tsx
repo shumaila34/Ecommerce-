@@ -4,77 +4,45 @@ import Link from "next/link";
 import { Formik, Form } from "formik";
 import { AuthLayout } from "../components/layouts/layout";
 import { FormInput } from "../components/ui/form-input";
-import { signupSchema } from "../lib/validations/auth";
-import type { SignupFormValues } from "../lib/types/auth";
-import { registerService } from "../services/authService";
+import { forgotPasswordSchema } from "../lib/validations/auth";
+import type { ForgotPasswordFormValues } from "../lib/types/auth";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { forgotService } from "../services/authService";
 import { Loader } from "lucide-react";
 
-export default function SignupPage() {
-  const router = useRouter();
-  const initialValues: SignupFormValues = {
-    FirstName: "",
-    LastName: "",
+export default function ForgotPasswordPage() {
+  const initialValues: ForgotPasswordFormValues = {
     Email: "",
-    Password: "",
-    PhoneNumber: "",
   };
 
-  const handleSubmit = async (values: SignupFormValues, { resetForm }: { resetForm: () => void }) => {
- 
+  const handleSubmit = async (values: ForgotPasswordFormValues) => {
     try {
-      const data = await registerService(values);
-      toast.success(data.message || "Signup successful");
-      resetForm(); 
-      router.push("/auth/login");
-    } catch (err) {
-      console.error(err);
-    } 
-  };
+          const data = await forgotService(values);
+          toast.success(data.message || "Check Your Email Address For Reset Password!");
+        } catch (err) {
+          console.error(err);
+        } 
+    };
+  
 
   return (
     <AuthLayout
-      title="Signing Up"
-      subtitle="Create an account by sign up with email, password"
+      title="Forgot Password"
+      subtitle="Enter your email to reset your password"
     >
       <Formik
         initialValues={initialValues}
-        validationSchema={signupSchema}
+        validationSchema={forgotPasswordSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <FormInput
-                label="First Name"
-                name="FirstName"
-                type="text"
-                placeholder="First Name"
-              />
-              <FormInput
-                label="Last Name"
-                name="LastName"
-                type="text"
-                placeholder="Last Name"
-              />
-              <FormInput
                 label="Email"
                 name="Email"
                 type="email"
                 placeholder="Email"
-              />
-              <FormInput
-                label="Password"
-                name="Password"
-                type="password"
-                placeholder="Password"
-              />
-              <FormInput
-                label="Phone Number"
-                name="PhoneNumber"
-                type="tel"
-                placeholder="Phone Number"
               />
             </div>
 
@@ -86,13 +54,13 @@ export default function SignupPage() {
               {isSubmitting ? (
                 <Loader className="animate-spin" size={16} />
               ) : (
-                "Register"
+                "Reset Password"
               )}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Already have an account?{" "}
+                Remember your password?{" "}
                 <Link
                   href="/auth/login"
                   className="font-medium text-emerald-600 hover:text-emerald-500"

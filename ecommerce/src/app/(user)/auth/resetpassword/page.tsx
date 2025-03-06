@@ -4,75 +4,63 @@ import Link from "next/link";
 import { Formik, Form } from "formik";
 import { AuthLayout } from "../components/layouts/layout";
 import { FormInput } from "../components/ui/form-input";
-import { loginSchema } from "../lib/validations/auth";
-import type { LoginFormValues } from "../lib/types/auth";
-import { loginService } from "../services/authService";
+import { resetPasswordSchema } from "../lib/validations/auth";
+import type { ResetPasswordFormValues } from "../lib/types/auth";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { resetService } from "../services/authService";
 import { Loader } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("resetToken");
   const router = useRouter();
 
-  const initialValues: LoginFormValues = {
-    Email: "",
+  const initialValues: ResetPasswordFormValues = {
     Password: "",
+    ConfirmPassword: "",
   };
 
-  const handleSubmit = async (values: LoginFormValues) => {
- 
+  const handleSubmit = async (values: ResetPasswordFormValues) => {
     try {
-      const data = await loginService(values);
-
-      // Save token and user in local storage
-      if(data?.token && data?.user) {
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+          const payload = {
+            token: token || "",
+            newPassword: values.Password,
+          }
+          const data = await resetService(payload);
+          toast.success(data.message || "Reset Successful");
+          router.push("/auth/login");
+        } catch (err) {
+          console.error(err);
+        } 
+    };
   
-        // Set token in cookies
-        document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
-      }
-
-      toast.success(data.message || "Login successful");
-
-      router.push("/dashboard");
-      
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
-    <AuthLayout title="Login" subtitle="Login with your email and password">
+    <AuthLayout
+      title="Rest Password"
+      subtitle="Enter your new password"
+    >
       <Formik
         initialValues={initialValues}
-        validationSchema={loginSchema}
+        validationSchema={resetPasswordSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <FormInput
-                label="Email"
-                name="Email"
-                type="email"
-                placeholder="Email"
-              />
-              <FormInput
                 label="Password"
                 name="Password"
                 type="password"
                 placeholder="Password"
               />
-            </div>
-
-            <div className="flex items-center justify-end">
-              <Link
-                href="/auth/forgotpassword"
-                className="text-sm text-emerald-600 hover:text-emerald-500"
-              >
-                Forgot password?
-              </Link>
+              <FormInput
+                label="Confirm Password"
+                name="ConfirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+              />
             </div>
 
             <button
@@ -83,18 +71,18 @@ export default function LoginPage() {
               {isSubmitting ? (
                 <Loader className="animate-spin" size={16} />
               ) : (
-                "Login"
+                "Reset Password"
               )}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                {"Don't have an account? "}
+                Remember your password?{" "}
                 <Link
-                  href="/auth/register"
+                  href="/auth/login"
                   className="font-medium text-emerald-600 hover:text-emerald-500"
                 >
-                  Sign Up
+                  Login
                 </Link>
               </p>
             </div>
