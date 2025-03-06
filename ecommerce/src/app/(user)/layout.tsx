@@ -1,18 +1,18 @@
-<<<<<<< HEAD
-import React from 'react';
+// <<<<<<< HEAD
+// import React from 'react';
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {children}
-    </div>
-  );
-}
-=======
+// export default function Layout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       {children}
+//     </div>
+//   );
+// }
+// =======
 import React from "react";
 import { OrderProvider } from "./orders/context/OrderContext";
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -26,4 +26,3 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default Layout;
->>>>>>> user-orders
