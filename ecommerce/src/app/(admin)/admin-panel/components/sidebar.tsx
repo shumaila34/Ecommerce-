@@ -149,17 +149,19 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           )}
         </nav>
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-white bg-black hover:bg-blue-700 hover:text-blue-800"
-            onClick={() => {
-              // Add logout logic here
-              console.log("Logout clicked");
-            }}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
+          <Link href="/admin-login/login">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-white bg-black hover:bg-blue-700 hover:text-white font-bold"
+              onClick={() => {
+                // Add logout logic here
+                console.log("Logout clicked");
+              }}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </Button>
+          </Link>
         </div>
       </aside>
     </>
