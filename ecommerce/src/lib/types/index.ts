@@ -3,10 +3,12 @@ export interface Product {
   name: string;
   price: number;
   originalPrice?: number;
+  oldPrice?:number;
   image: string;
   category: string;
   rating: number;
   reviews: number;
+  description:string;
 }
 
 export interface BannerSlide {
