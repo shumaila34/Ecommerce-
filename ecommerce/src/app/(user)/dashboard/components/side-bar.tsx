@@ -50,11 +50,11 @@ export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (o
   return (
     <div
       className={cn(
-        "fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:w-64",
+        "fixed inset-y-0 left-0 z-10 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:w-64",
         open ? "translate-x-0" : "-translate-x-full",
       )}
     >
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="  flex items-center justify-between p-4 border-b">
         <span className="text-xl font-semibold">Menu</span>
         <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(false)}>
           <X className="h-6 w-6" />

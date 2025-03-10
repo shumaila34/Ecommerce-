@@ -3,13 +3,14 @@
 import { Apple, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export const AppDownload = () => {
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   // Step 2: Hide the component on /dashboard
-  // if (pathname === "/dashboard") return null;
+  const hiddenPaths = ["/dashboard", "/orders", "/password", "/profile"];
+  if (hiddenPaths.includes(pathname)) return null;
   return (
     <section className="container mx-auto px-4 py-12">
       <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl overflow-hidden">

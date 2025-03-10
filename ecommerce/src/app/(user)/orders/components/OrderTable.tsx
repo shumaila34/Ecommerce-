@@ -88,7 +88,7 @@ const OrderTable = () => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">My Orders</h2>
-      <div className="overflow-x-auto">
+      <div className=" overflow-x-auto">
         <table className="min-w-full border border-gray-200">
           <thead className="bg-orange-400 text-white text-sm">
             {table.getHeaderGroups().map((headerGroup) => (
