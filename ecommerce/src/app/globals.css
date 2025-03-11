@@ -18,6 +18,17 @@ body {
 }
 }
 
+/* Keep scrollbar visible even if content doesn't overflow */
+html {
+  overflow-y: scroll;
+}
+
+/* Prevent the fixed action bar from moving */
+body {
+  padding-right: 0 !important;
+  overflow-y: auto !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
