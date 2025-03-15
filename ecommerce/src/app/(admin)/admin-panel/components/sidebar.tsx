@@ -1,20 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   ListOrdered,
   Users,
   ShoppingCart,
   UserCog,
-  Settings,
   FileText,
   X,
   LogOut,
   ChevronDown,
-  Tag,
   Ticket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,14 +31,12 @@ const menuItems = [
     subItems: [
       { title: "Products", icon: ShoppingCart, href: "/admin-panel/catalog/products" },
       { title: "Categories", icon: FileText, href: "/admin-panel/catalog/categories" },
-      { title: "Attributes", icon: Tag, href: "/admin-panel/catalog/attributes" },
       { title: "Coupons", icon: Ticket, href: "/admin-panel/catalog/coupons" },
     ],
   },
   { title: "Customers", icon: Users, href: "/admin-panel/customers" },
   { title: "Orders", icon: ShoppingCart, href: "/admin-panel/orders" },
   { title: "Our Staff", icon: UserCog, href: "/admin-panel/staff" },
-  { title: "Settings", icon: Settings, href: "/admin-panel/settings" },
 ];
 
 interface SidebarProps {
@@ -50,14 +46,20 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const router = useRouter();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleLogout = () => {
+    // Remove from Local Storage
+    localStorage.removeItem("authToken");
 
-  if (!mounted) return null;
+    // Expire the Cookie
+    document.cookie =
+      "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; samesite=strict";
+
+    // Redirect to Login Page
+    router.push("/admin-login/login");
+  };
 
   return (
     <>
@@ -148,20 +150,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             )
           )}
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <Link href="/admin-login/login">
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-white bg-black hover:bg-blue-700 hover:text-white font-bold"
-              onClick={() => {
-                // Add logout logic here
-                console.log("Logout clicked");
-              }}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
-            </Button>
-          </Link>
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-white bg-black hover:bg-blue-700 hover:text-blue-800"
+            onClick={handleLogout}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
         </div>
       </aside>
     </>

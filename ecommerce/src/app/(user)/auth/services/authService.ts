@@ -3,12 +3,12 @@ import { authResponse, ForgotpasswordData, LoginData, RegisterData, ResetPasswor
 
 
 export const registerService = async (registerData: RegisterData): Promise<authResponse> => {
-    const response = await axiosInstance.post<authResponse>("/auth/register", registerData);
+    const response = await axiosInstance.post<authResponse>("/auth/signup", registerData);
     return response.data;
 };
 
 export const loginService = async (loginData: LoginData): Promise<authResponse> => {
-    const response = await axiosInstance.post<authResponse>("/auth/login", loginData);
+    const response = await axiosInstance.post<authResponse>("/auth/signin", loginData);
     return response.data;
 };
 
@@ -17,8 +17,13 @@ export const forgotService = async (ForgotpasswordData: ForgotpasswordData): Pro
     return response.data;
 };
 
-export const resetService = async (ResetpasswordData: ResetPasswordData): Promise<authResponse> => {
-    const response = await axiosInstance.post<authResponse>("/auth/reset-password", ResetpasswordData);
+export const resetService = async (ResetpasswordData: ResetPasswordData, token: String): Promise<authResponse> => {
+    const response = await axiosInstance.post<authResponse>("/auth/reset-password?token=" + token,  ResetpasswordData);
+    return response.data;
+};
+
+export const verifyEmail = async (token: String): Promise<authResponse> => {
+    const response = await axiosInstance.get<authResponse>("/auth/verify-email?token=" + token);
     return response.data;
 };
 
