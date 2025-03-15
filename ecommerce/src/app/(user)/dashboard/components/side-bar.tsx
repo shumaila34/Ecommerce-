@@ -1,10 +1,17 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { KeyRound, LayoutDashboard, LogOut, ShoppingBag, UserCog, X } from "lucide-react"
-import Link from "next/link"
-import { usePathname, useRouter  } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import {
+  KeyRound,
+  LayoutDashboard,
+  LogOut,
+  ShoppingBag,
+  UserCog,
+  X,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const sidebarLinks = [
   {
@@ -27,10 +34,16 @@ const sidebarLinks = [
     href: "/password",
     icon: KeyRound,
   },
-]
+];
 
-export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
-  const pathname = usePathname()
+export function DashboardSidebar({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) {
+  const pathname = usePathname();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -46,17 +59,21 @@ export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (o
     }
   };
 
-
   return (
     <div
       className={cn(
         "fixed inset-y-0 left-0 z-10 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:w-64",
-        open ? "translate-x-0" : "-translate-x-full",
+        open ? "translate-x-0" : "-translate-x-full"
       )}
     >
       <div className="  flex items-center justify-between p-4 border-b">
         <span className="text-xl font-semibold">Menu</span>
-        <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(false)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          onClick={() => setOpen(false)}
+        >
           <X className="h-6 w-6" />
         </Button>
       </div>
@@ -67,7 +84,7 @@ export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (o
             href={link.href}
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100",
-              pathname === link.href && "bg-emerald-50 text-emerald-600",
+              pathname === link.href && "bg-blue-50 text-blue-600"
             )}
             onClick={() => setOpen(false)}
           >
@@ -75,13 +92,14 @@ export function DashboardSidebar({ open, setOpen }: { open: boolean; setOpen: (o
             {link.title}
           </Link>
         ))}
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100"
-        onClick={handleLogout}
+        <button
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100"
+          onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />
           Logout
         </button>
       </nav>
     </div>
-  )
+  );
 }

@@ -49,7 +49,7 @@ export function Banner({ slides }: BannerProps) {
         <div className="absolute bottom-8 left-8 z-20 text-white">
           <h1 className="text-4xl font-bold mb-4">{slides[currentSlide].title}</h1>
           <p className="text-lg mb-6">{slides[currentSlide].description}</p>
-          <Button size="lg" variant="secondary">
+          <Button size="lg" variant="secondary"  >
             {slides[currentSlide].buttonText}
           </Button>
         </div>
@@ -79,7 +79,7 @@ export function Banner({ slides }: BannerProps) {
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all ${
-                index === currentSlide ? 'bg-white w-4' : 'bg-white/50'
+                index === currentSlide ? 'bg-blue-600 w-4' : 'bg-white/50'
               }`}
             />
           ))}

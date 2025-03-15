@@ -21,16 +21,18 @@ export default function SignupPage() {
     PhoneNumber: "",
   };
 
-  const handleSubmit = async (values: SignupFormValues, { resetForm }: { resetForm: () => void }) => {
- 
+  const handleSubmit = async (
+    values: SignupFormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
     try {
       const data = await registerService(values);
       toast.success(data.message || "Signup successful");
-      resetForm(); 
+      resetForm();
       router.push("/auth/login");
     } catch (err) {
       console.error(err);
-    } 
+    }
   };
 
   return (
@@ -81,7 +83,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <Loader className="animate-spin" size={16} />
@@ -95,7 +97,7 @@ export default function SignupPage() {
                 Already have an account?{" "}
                 <Link
                   href="/auth/login"
-                  className="font-medium text-emerald-600 hover:text-emerald-500"
+                  className="font-medium text-blue-600 hover:text-blue-500"
                 >
                   Login
                 </Link>
