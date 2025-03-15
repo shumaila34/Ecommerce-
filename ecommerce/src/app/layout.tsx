@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
-  const isAdminPanel = pathname.startsWith("/admin-panel"); // Check if it's the admin route
+  const isAdminPanel = pathname.startsWith("/admin-panel") ||pathname.startsWith("/admin-login"); // Check if it's the admin route
 
   return (
     <html lang="en">
