@@ -1,63 +1,52 @@
 "use client";
 
-import { Apple, PlayCircle } from "lucide-react";
+import { Apple, Play } from "lucide-react"; // Custom Play Store icon
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-// import { usePathname } from "next/navigation";
-
 export const AppDownload = () => {
-  // const pathname = usePathname();
-
-  // Step 2: Hide the component on /dashboard
-  // if (pathname === "/dashboard") return null;
   return (
-    <section className="container mx-auto px-4 py-12">
-      <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl overflow-hidden">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="p-8 md:p-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
+    <section className="container mx-auto px-4 py-10 bg-white">
+      <Card className="bg-blue-100 rounded-xl shadow-md border border-blue-200">
+        <CardContent className="grid md:grid-cols-2 gap-6 items-center p-8">
+          {/* Left: Text Content */}
+          <div>
+            <h2 className="text-3xl font-bold text-blue-600 mb-4">
               Shop Smarter with Our App
             </h2>
-            <p className="text-white/90 text-lg mb-8">
+            <p className="text-gray-700 text-base mb-5">
               Get exclusive offers, real-time order tracking, and a personalized
-              shopping experience. Download our app now!
+              shopping experience.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="gap-2 hover:bg-white hover:text-primary transition-colors"
-              >
-                <Apple className="w-6 h-6" />
+            <div className="flex flex-wrap gap-3">
+              <Button className="flex items-center gap-2 bg-blue-500 text-white hover:bg-blue-600 transition-all px-4 py-2 rounded-md shadow">
+                <Apple className="w-4 h-4 text-white" /> {/* Smaller Icon */}
                 <div className="text-left">
-                  <div className="text-xs">Download on the</div>
-                  <div className="text-sm font-bold">App Store</div>
+                  <p className="text-[10px]">Download on the</p>
+                  <p className="text-xs font-semibold">App Store</p>
                 </div>
               </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                className="gap-2 hover:bg-white hover:text-primary transition-colors"
-              >
-                <PlayCircle className="w-6 h-6" />
+              <Button className="flex items-center gap-2 bg-blue-500 text-white hover:bg-blue-600 transition-all px-4 py-2 rounded-md shadow">
+                <Play className="w-4 h-4 text-white" />{" "}
+                {/* Custom Play Store Icon */}
                 <div className="text-left">
-                  <div className="text-xs">Get it on</div>
-                  <div className="text-sm font-bold">Google Play</div>
+                  <p className="text-[10px]">Get it on</p>
+                  <p className="text-xs font-semibold">Google Play</p>
                 </div>
               </Button>
             </div>
           </div>
-          <div className="hidden md:block p-8">
-            <div className="relative h-[400px]">
-              <img
-                src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?auto=format&fit=crop&q=80&w=800"
-                alt="App mockup"
-                className="absolute inset-0 w-full h-full object-contain"
-              />
-            </div>
+
+          {/* Right: Image Section */}
+          <div className="hidden md:block">
+            <img
+              src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?auto=format&fit=crop&q=80&w=400"
+              alt="App preview"
+              className="rounded-lg shadow-md w-60 h-auto"
+            />
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { AuthLayoutProps } from "./layout.types";
 
 export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
