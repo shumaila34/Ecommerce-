@@ -13,21 +13,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
-  const token = searchParams.get("resetToken");
+  const token = searchParams.get("token");
   const router = useRouter();
 
   const initialValues: ResetPasswordFormValues = {
-    Password: "",
-    ConfirmPassword: "",
+    newPassword: "",
   };
 
   const handleSubmit = async (values: ResetPasswordFormValues) => {
     try {
           const payload = {
-            token: token || "",
-            newPassword: values.Password,
+            newPassword: values.newPassword,
           }
-          const data = await resetService(payload);
+          const data = await resetService(payload, token?? "");
           toast.success(data.message || "Reset Successful");
           router.push("/auth/login");
         } catch (err) {
@@ -38,7 +36,7 @@ export default function ResetPasswordPage() {
 
   return (
     <AuthLayout
-      title="Rest Password"
+      title="Reset Password"
       subtitle="Enter your new password"
     >
       <Formik
@@ -50,16 +48,10 @@ export default function ResetPasswordPage() {
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <FormInput
-                label="Password"
-                name="Password"
+                label="New Password"
+                name="newPassword"
                 type="password"
-                placeholder="Password"
-              />
-              <FormInput
-                label="Confirm Password"
-                name="ConfirmPassword"
-                type="password"
-                placeholder="Confirm Password"
+                placeholder="New Password"
               />
             </div>
 

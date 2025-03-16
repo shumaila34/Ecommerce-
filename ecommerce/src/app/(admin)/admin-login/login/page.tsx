@@ -14,6 +14,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { loginSchema } from "../lib/validationSchemas";
+import { loginService } from "@/app/(user)/auth/services/authService";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 interface LoginFormValues {
   email: string;
@@ -22,6 +26,24 @@ interface LoginFormValues {
 
 export default function LoginPage() {
   const initialValues: LoginFormValues = { email: "", password: "" };
+  const router = useRouter();
+
+  const handleSubmit = async (values: LoginFormValues) => {
+    try {
+      const data = await loginService(values);
+
+      if (data?.accessToken) {
+        localStorage.setItem("authToken", data.accessToken); // Save token to local storage
+
+        document.cookie = `authToken=${data.accessToken}; path=/; secure; samesite=strict`; // Set token in cookies
+
+        toast.success("Login successful");
+        router.push("/admin-panel"); // Redirect to dashboard
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -33,11 +55,7 @@ export default function LoginPage() {
           <Formik
             initialValues={initialValues}
             validationSchema={loginSchema}
-            onSubmit={(values, actions) => {
-              console.log(values);
-              // Handle login logic here
-              actions.setSubmitting(false);
-            }}
+            onSubmit={handleSubmit}
           >
             {({ errors, touched, isSubmitting }) => (
               <Form>
@@ -73,13 +91,17 @@ export default function LoginPage() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Logging in..." : "Login"}
+                  {isSubmitting ? (
+                    <Loader className="animate-spin" size={16} />
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </Form>
             )}
           </Formik>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
+        {/* <CardFooter className="flex flex-col space-y-4">
           <div className="flex justify-between w-full text-sm">
             <Link
               href="/admin-login/forgot-password"
@@ -94,7 +116,7 @@ export default function LoginPage() {
               Create account
             </Link>
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </AuthLayout>
   );
