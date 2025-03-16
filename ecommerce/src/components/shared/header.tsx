@@ -237,12 +237,19 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const form = e.currentTarget;
+  //   const searchInput = form.querySelector("input") as HTMLInputElement;
+  //   if (searchInput.value) {
+  //     router.push(`/search?q=${encodeURIComponent(searchInput.value)}`);
+  //   }
+  // };
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const searchInput = form.querySelector("input") as HTMLInputElement;
-    if (searchInput.value) {
-      router.push(`/search?q=${encodeURIComponent(searchInput.value)}`);
+    const searchQuery = e.currentTarget.search.value.trim(); // Get input value
+    if (searchQuery) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
