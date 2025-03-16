@@ -5,6 +5,8 @@ import "./globals.css";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { AppDownload } from "@/components/shared/AppDownload";
+import { Providers } from "@/providers/Providers";
+
 
 // export const metadata: Metadata = {
 //   title: "Organic Store - Fresh & Healthy Products",
@@ -24,12 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Providers> 
         <div className="flex flex-col min-h-screen">
           {!isAdminPanel && <Header />}
           <main className="flex-grow">{children}</main>
           {!isAdminPanel && <AppDownload />}
           {!isAdminPanel && <Footer />}
         </div>
+        </Providers>
       </body>
     </html>
   );
