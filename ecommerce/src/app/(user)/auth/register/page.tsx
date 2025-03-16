@@ -11,20 +11,17 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
 
+// Define the initial form values
+const initialValues: SignupFormValues = {
+  name: "",
+  email: "",
+  password: "",
+};
+
 export default function SignupPage() {
   const router = useRouter();
-  const initialValues: SignupFormValues = {
-    FirstName: "",
-    LastName: "",
-    Email: "",
-    Password: "",
-    PhoneNumber: "",
-  };
 
-  const handleSubmit = async (
-    values: SignupFormValues,
-    { resetForm }: { resetForm: () => void }
-  ) => {
+  const handleSubmit = async (values: SignupFormValues, { resetForm }: { resetForm: () => void }) => {
     try {
       const data = await registerService(values);
       toast.success(data.message || "Signup successful");
@@ -37,8 +34,8 @@ export default function SignupPage() {
 
   return (
     <AuthLayout
-      title="Signing Up"
-      subtitle="Create an account by sign up with email, password"
+      title="Sign Up"
+      subtitle="Create an account by signing up with email and password"
     >
       <Formik
         initialValues={initialValues}
@@ -49,34 +46,22 @@ export default function SignupPage() {
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <FormInput
-                label="First Name"
-                name="FirstName"
+                label="Full Name"
+                name="name"
                 type="text"
-                placeholder="First Name"
-              />
-              <FormInput
-                label="Last Name"
-                name="LastName"
-                type="text"
-                placeholder="Last Name"
+                placeholder="Full Name"
               />
               <FormInput
                 label="Email"
-                name="Email"
+                name="email"
                 type="email"
-                placeholder="Email"
+                placeholder="Email Address"
               />
               <FormInput
                 label="Password"
-                name="Password"
+                name="password"
                 type="password"
                 placeholder="Password"
-              />
-              <FormInput
-                label="Phone Number"
-                name="PhoneNumber"
-                type="tel"
-                placeholder="Phone Number"
               />
             </div>
 

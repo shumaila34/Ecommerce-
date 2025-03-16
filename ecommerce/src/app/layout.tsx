@@ -2,6 +2,8 @@
 // import type { Metadata } from "next";
 import { usePathname } from "next/navigation";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { AppDownload } from "@/components/shared/AppDownload";
@@ -21,12 +23,13 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
-  const isAdminPanel = pathname.startsWith("/admin-panel"); // Check if it's the admin route
+  const isAdminPanel = pathname.startsWith("/admin-panel") ||pathname.startsWith("/admin-login"); // Check if it's the admin route
 
   return (
     <html lang="en">
       <body>
-        <Providers> 
+        <ToastContainer position="top-right" autoClose={3000} />
+        <Providers>
         <div className="flex flex-col min-h-screen">
           {!isAdminPanel && <Header />}
           <main className="flex-grow">{children}</main>

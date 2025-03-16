@@ -6,8 +6,7 @@ export default function RootLayout({
     children: React.ReactNode;
   }) {
     return (
-      <html lang="en">
-        <ToastContainer position="top-right" autoClose={3000} />
+      <html lang="en" suppressHydrationWarning>
         <body>{children}</body>
       </html>
     );

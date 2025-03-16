@@ -12,7 +12,7 @@ import { Loader } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const initialValues: ForgotPasswordFormValues = {
-    Email: "",
+    email: "",
   };
 
   const handleSubmit = async (values: ForgotPasswordFormValues) => {
@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
             <div className="space-y-4">
               <FormInput
                 label="Email"
-                name="Email"
+                name="email"
                 type="email"
                 placeholder="Email"
               />

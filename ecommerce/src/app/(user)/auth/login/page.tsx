@@ -15,8 +15,8 @@ export default function LoginPage() {
   const router = useRouter();
 
   const initialValues: LoginFormValues = {
-    Email: "",
-    Password: "",
+    email: "",
+    password: "",
   };
 
   const handleSubmit = async (values: LoginFormValues) => {
@@ -25,15 +25,14 @@ export default function LoginPage() {
       const data = await loginService(values);
 
       // Save token and user in local storage
-      if(data?.token && data?.user) {
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+      if(data?.accessToken) {
+        localStorage.setItem("authToken", data.accessToken);
   
         // Set token in cookies
-        document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
+        document.cookie = `authToken=${data.accessToken}; path=/; secure; HttpOnly;`;
       }
 
-      toast.success(data.message || "Login successful");
+      toast.success("Login successful");
 
       router.push("/dashboard");
       
@@ -54,13 +53,13 @@ export default function LoginPage() {
             <div className="space-y-4">
               <FormInput
                 label="Email"
-                name="Email"
+                name="email"
                 type="email"
                 placeholder="Email"
               />
               <FormInput
                 label="Password"
-                name="Password"
+                name="password"
                 type="password"
                 placeholder="Password"
               />
