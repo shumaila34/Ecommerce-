@@ -1,9 +1,10 @@
-// 'use client';
+'use client';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Heart, Star } from 'lucide-react';
 import { Product } from '@/lib/types';
+import { useCart } from "@/lib/hooks/use-cart"
 import {
   Card,
   CardContent,
@@ -13,6 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
+
+
 interface ProductCardProps {
   product: Product;
   showDiscount?: boolean;
@@ -20,9 +23,14 @@ interface ProductCardProps {
 
 export function ProductCard({ product, showDiscount }: ProductCardProps) {
   const router = useRouter();
-
+  const { addToCart } = useCart();
   const handleClick = () => {
     router.push(`/product/${product.id}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation(); 
+    addToCart({ product, quantity: 1 }); 
   };
 
   const discountPercentage = product.originalPrice
@@ -75,7 +83,7 @@ export function ProductCard({ product, showDiscount }: ProductCardProps) {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md" onClick={(e) => e.stopPropagation()}>
+        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md" onClick={handleAddToCart}>
           Add to Cart
         </Button>
       </CardFooter>

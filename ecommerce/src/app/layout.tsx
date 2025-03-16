@@ -10,11 +10,7 @@ import { AppDownload } from "@/components/shared/AppDownload";
 import { Providers } from "@/providers/Providers";
 
 
-// export const metadata: Metadata = {
-//   title: "Organic Store - Fresh & Healthy Products",
-//   description:
-//     "Your one-stop shop for organic products, fresh vegetables, fruits, and more.",
-// };
+
 
 export default function RootLayout({
   children,

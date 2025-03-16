@@ -35,7 +35,7 @@ export default function WishlistPage() {
           </div>
           <h1 className="text-2xl font-bold mb-4">Your wishlist is empty</h1>
           <p className="text-gray-500 mb-8">Looks like you haven't added any products to your wishlist yet.</p>
-          <Link href="/products">
+          <Link href="/">
             <Button className="bg-indigo-600 hover:bg-indigo-700">Explore Products</Button>
           </Link>
         </div>
